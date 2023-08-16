@@ -9,9 +9,12 @@ type ResetPasswordProps = {};
 const ResetPassword: React.FC<ResetPasswordProps> = () => {
     const [email, setEmail] = useState('');
     const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(auth)
-    const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleReset = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendPasswordResetEmail(email);
+        const success = await sendPasswordResetEmail(email);
+        if (success) {
+            alert('Sent email')
+        }
     };
 
     return (
