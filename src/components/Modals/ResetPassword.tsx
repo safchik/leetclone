@@ -1,6 +1,6 @@
 
 import { auth } from "@/firebase/firebase";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 
 
@@ -13,6 +13,12 @@ const ResetPassword: React.FC<ResetPasswordProps> = () => {
         e.preventDefault();
         sendPasswordResetEmail(email);
     };
+
+    useEffect(() => {
+        if (error) {
+            alert(error.message);
+        }
+    }, [error])
 
     return (
         <form className='space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8' onSubmit={handleReset}>
