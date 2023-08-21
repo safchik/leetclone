@@ -27,12 +27,12 @@ const Login: React.FC<LoginProps> = () => {
             if (!newUser) return;
             router.push("/");
         } catch (error: any) {
-            toast.error(error.message, { position: "bottom-center", autoClose: 3000 });
+            toast.error(error.message, { position: "top-center", autoClose: 3000, theme: "dark" });
         }
     }
 
     useEffect(() => {
-        if (error) toast.error(error.message, { position: "bottom-center", autoClose: 3000 });
+        if (error) toast.error(error.message, { position: "-center", autoClose: 3000 });
     }, [error]);
 
     return <form className="space-y-6 px-6 pb-4" onSubmit={handleLogin}>
