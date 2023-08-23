@@ -1,13 +1,15 @@
+
+import { Problem } from '@/utils/types/problem';
 import React from 'react';
 import { AiFillDislike, AiFillLike } from 'react-icons/ai';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { TiStarOutline } from 'react-icons/ti';
 
 type ProblemDescriptionProps = {
-
+    problem: Problem;
 };
 
-const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
+const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem }) => {
 
     return (
         <div className='bg-dark-layer-1'>
@@ -23,7 +25,7 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
                     {/* Problem heading */}
                     <div className='w-full'>
                         <div className='flex space-x-4'>
-                            <div className='flex-1 mr-2 text-lg text-white font-medium'>1. Two Sum</div>
+                            <div className='flex-1 mr-2 text-lg text-white font-medium'>{problem.title}</div>
                         </div>
 
                         <div className='flex items-center mt-3'>
@@ -59,30 +61,38 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
 
 
                         {/* Problem Statement(paragraphs) */}
-                        <div className='text-white text-sm'></div>
+                        <div className='text-white text-sm'>
+                            <div dangerouslySetInnerHTML={{ __html: problem.problemStatement }} />
+                        </div>
 
                         {/* Examples */}
                         <div className='mt-4'>
-                            <div>
-                                <div className='example-card'>
-                                    <pre>
-                                        <strong className='text-white'>Input: </strong>
-                                        <br />
-                                        <strong>Output:</strong>
-                                        <br />
-                                        <strong>Explanation:</strong>
-                                    </pre>
+                            {problem.examples.map((example, index) => (
+                                <div key={example.id}>
+                                    <p className='font-medium text-white '>Example {index + 1}: </p>
+                                    {example.img && <img src={example.img} alt='' className='mt-3' />}
+                                    <div className='example-card'>
+                                        <pre>
+                                            <strong className='text-white'>Input: </strong> {example.inputText}
+                                            <br />
+                                            <strong>Output:</strong>
+                                            {example.outputText} <br />
+                                            {example.explanation && (
+                                                <>
+                                                    <strong>Explanation:</strong> {example.explanation}
+                                                </>
+                                            )}
+                                        </pre>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
 
                         {/* Constraints */}
                         <div className='my-8 pb-4'>
                             <div className='text-white text-sm font-medium'>Constraints:</div>
                             <ul className='text-white ml-5 list-disc '>
-                                <li className='mt-2'>
-                                    <code>-10 target 10</code>
-                                </li>
+                                <div dangerouslySetInnerHTML={{ __html: problem.constraints }} />
                             </ul>
                         </div>
                     </div>

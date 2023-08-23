@@ -1,5 +1,5 @@
 import assert from "assert";
-import { Problem } from "./types/problem";
+import { Problem } from "../types/problem";
 import example1 from "./images/search-a-2d-1.jpg";
 import example2 from "./images/search-a-2d-2.jpg";
 
@@ -34,21 +34,20 @@ export const search2DMatrixHandler = (fn: any) => {
         throw new Error(error);
     }
 };
-
 const starterCodeSearch2DMatrixJS = `// Do not edit function name
 function searchMatrix(matrix, target) {
-    // Write your code here
+  // Write your code here
 };`;
 
 export const search2DMatrix: Problem = {
-    id: "search-2-2D-matrix",
+    id: "search-a-2d-matrix",
     title: "5. Search a 2D Matrix",
     problemStatement: `
-    <p class='mt-3'>Write an efficient algorithm that searches for a value in an <code>m x n</code> matrix. This matrix has the following properties:</p>
-      <li class="mt-3">Integers in each row are sorted from left to right.</li>
-      <li class="mt-3">The first integer of each row is greater than the last integer of the previous row.</li>
-    <p class='mt-3'>Given <code>matrix</code>, an <code>m x n</code> matrix, and <code>target</code>, return <code>true</code> if <code>target</code> is in the matrix, and <code>false</code> otherwise.</p>
-    `,
+  <p class='mt-3'>Write an efficient algorithm that searches for a value in an <code>m x n</code> matrix. This matrix has the following properties:</p>
+    <li class="mt-3">Integers in each row are sorted from left to right.</li>
+    <li class="mt-3">The first integer of each row is greater than the last integer of the previous row.</li>
+  <p class='mt-3'>Given <code>matrix</code>, an <code>m x n</code> matrix, and <code>target</code>, return <code>true</code> if <code>target</code> is in the matrix, and <code>false</code> otherwise.</p>
+  `,
     examples: [
         {
             id: 0,
