@@ -9,15 +9,15 @@ import { problems } from "../mockProblems/problems";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 type ProblemsTableProps = {
-
+    setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ProblemsTable: React.FC<ProblemsTableProps> = () => {
+const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => {
     const [youtubePlayer, setYoutubePlayer] = useState({
         isOpen: false,
         videoId: "",
     });
-
+    const problems = useGetProblems(setLoadingProblems);
     const closeModal = () => {
         setYoutubePlayer({ isOpen: false, videoId: "" });
     };
@@ -88,4 +88,6 @@ const ProblemsTable: React.FC<ProblemsTableProps> = () => {
     );
 };
 export default ProblemsTable;
+
+
 
