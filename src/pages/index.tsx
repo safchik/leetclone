@@ -1,12 +1,43 @@
 
 import ProblemsTable from "@/components/ProblemsTable/ProblemsTable";
 import Topbar from "@/components/Topbar/Topbar";
+import { firestore } from "@/firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
 
 
 
 
 export default function Home() {
+  const [inputs, setInputs] = useState({
+    id: '',
+    title: '',
+    difficulty: '',
+    category: '',
+    videoId: '',
+    link: '',
+    order: 0,
+    likes: 0,
+    dislikes: 0
+  })
 
+  const hanleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    // convert inputs.order to integer
+    const newProblem = {
+      ...inputs,
+      order: Number(inputs.order),
+    }
+    await setDoc(doc(firestore, 'problems', inputs.id), newProblem);
+    alert('saved to db');
+  }
 
   return (
     <>
@@ -43,9 +74,18 @@ export default function Home() {
               </tr>
             </thead>
             <ProblemsTable />
-
           </table>
         </div>
+        <form className="p-6 flex flex-col max-w-sm gap-3" onSubmit={handleSubmit}>
+          <input onChange={hanleInputChange} type="text" placeholder="problem id" name="id" />
+          <input onChange={hanleInputChange} type="text" placeholder="title" name="title" />
+          <input onChange={hanleInputChange} type="text" placeholder="difficulty" name="difficulty" />
+          <input onChange={hanleInputChange} type="text" placeholder="category" name="category" />
+          <input onChange={hanleInputChange} type="text" placeholder="order" name="order" />
+          <input onChange={hanleInputChange} type="text" placeholder="videoId?" name="videoId" />
+          <input onChange={hanleInputChange} type="text" placeholder="link?" name="link" />
+          <button className="bg-white">Save to Firestore</button>
+        </form>
       </main>
     </>
   );
