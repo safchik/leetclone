@@ -8,6 +8,7 @@ import { problems } from "../mockProblems/problems";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { firestore } from "@/firebase/firebase";
+import { DBProblem } from "@/utils/types/problem";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 type ProblemsTableProps = {
@@ -92,7 +93,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => 
 export default ProblemsTable;
 
 function useGetProblems(setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>) {
-    const [problems, setProblems] = useState([]);
+    const [problems, setProblems] = useState<DBProblem[]>([]);
 
     useEffect(() => {
         const getProblems = async () => {
@@ -100,9 +101,9 @@ function useGetProblems(setLoadingProblems: React.Dispatch<React.SetStateAction<
             setLoadingProblems(true);
             const q = query(collection(firestore, "problems"), orderBy("order", "asc"));
             const querySnapshot = await getDocs(q);
-            const tmp = [];
+            const tmp: DBProblem[] = [];
             querySnapshot.forEach((doc) => {
-                tmp.push({ id: doc.id, ...doc.data() });
+                tmp.push({ id: doc.id, ...doc.data() } as DBProblem);
             });
             setProblems(tmp);
             setLoadingProblems(false);
